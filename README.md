@@ -41,8 +41,7 @@ Test the `POST /predict/` endpoint directly in your browser:
 
 ![Swagger UI – POST /predict](screenshots/swagger.png)
 
-- **file**: upload an image (JPEG/PNG)  
-- **confidence**: optional query parameter (0.0–1.0), default is 0.50
+**file**: upload an image (JPEG/PNG)  
 
 ## POST /predict/
 
