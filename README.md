@@ -64,7 +64,7 @@ Annotated images are saved to `images/output/annotated_<filename>`. The default 
 
 Sample detection on a daytime street scene (`annotated_pic5.png`):
 
-![Demo Daytime Scene](images/output/pannotated_pic5.png)
+![Demo Daytime Scene](images/output/annotated_pic5.png)
 
 ## Threshold Analysis
 
