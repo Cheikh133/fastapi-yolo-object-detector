@@ -3,3 +3,9 @@ uvicorn[standard]
 pillow
 torch
 torchvision
+opencv-python-headless
+pandas
+requests
+ultralytics
+seaborn
+python-multipart

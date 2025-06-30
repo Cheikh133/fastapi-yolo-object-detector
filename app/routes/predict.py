@@ -1,31 +1,51 @@
-from fastapi import APIRouter, UploadFile, File, HTTPException
-from fastapi.responses import StreamingResponse
-from app.services.inference import run_inference_on_image
+"""
+app/routes/predict.py
+
+Defines the /predict endpoint for YOLOv5 object detection via FastAPI.
+"""
 import io
+from fastapi import APIRouter, UploadFile, File, HTTPException, Query
+from fastapi.responses import StreamingResponse
 
-router = APIRouter()  # router for all /predict endpoints
+from app.services.inference import run_inference_on_image
 
-@router.post("/", response_class=StreamingResponse)
+router = APIRouter()
+
+
+@router.post(
+    "/",
+    response_class=StreamingResponse,
+    summary="Run object detection on an uploaded image",
+)
 async def predict_image(
-    file: UploadFile = File(...)  # accept an uploaded file
-):
+    file: UploadFile = File(...),
+    confidence: float = Query(
+        0.50,
+        ge=0.0,
+        le=1.0,
+        description="Confidence threshold for filtering detections",
+    ),
+) -> StreamingResponse:
     """
-    Receive an image file, run YOLO inference, and return annotated image.
+    Receive an image file, perform YOLOv5 inference with the specified
+    confidence threshold, and return the annotated image as JPEG.
+
+    Args:
+        file: Uploaded image file in multipart/form-data.
+        confidence: Float between 0.0 and 1.0 to filter out low-confidence detections.
+
+    Returns:
+        StreamingResponse: JPEG image with bounding boxes drawn.
     """
-    # read raw bytes from upload
-    content = await file.read()
+    image_bytes = await file.read()
 
     try:
-        # perform inference and get a PIL Image with bounding boxes
-        annotated_image = run_inference_on_image(content)
-    except Exception as e:
-        # if something goes wrong, return HTTP 500
-        raise HTTPException(status_code=500, detail=str(e))
+        annotated = run_inference_on_image(image_bytes, conf_threshold=confidence)
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc))
 
-    # write image bytes to a buffer
     buffer = io.BytesIO()
-    annotated_image.save(buffer, format="JPEG")
+    annotated.save(buffer, format="JPEG")
     buffer.seek(0)
 
-    # stream back the annotated image
     return StreamingResponse(buffer, media_type="image/jpeg")
