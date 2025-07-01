@@ -1,0 +1,33 @@
+name: Build & Push Docker Image
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout the repo
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Log in to Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # 3. Build the Docker image
+      - name: Build image
+        run: |
+          docker build -t cheikh331/fastapi-yolo:${{ github.sha }} .
+          docker tag cheikh331/fastapi-yolo:${{ github.sha }} cheikh331/fastapi-yolo:latest
+
+      # 4. Push both tags (commit SHA and latest)
+      - name: Push image
+        run: |
+          docker push cheikh331/fastapi-yolo:${{ github.sha }}
+          docker push cheikh331/fastapi-yolo:latest

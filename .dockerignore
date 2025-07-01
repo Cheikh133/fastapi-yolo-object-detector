@@ -1,0 +1,16 @@
+# Ignore Python virtual envs
+.venv/
+venv/
+
+# Ignore caches and bytecode
+__pycache__/
+*.py[cod]
+
+# Ignore local outputs
+images/output/
+
+# Ignore notebooks checkpoints
+.ipynb_checkpoints/
+
+# Ignore Git metadata
+.git/
