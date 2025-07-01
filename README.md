@@ -1,5 +1,9 @@
 # YOLOv5 Object Detection API
 
+[![Build & Push Docker Image](https://github.com/Cheikh133/fastapi-yolo-object-detector/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/Cheikh133/fastapi-yolo-object-detector/actions/workflows/docker-publish.yml)
+
+[![Docker Pulls](https://img.shields.io/docker/pulls/cheikh331/fastapi-yolo)](https://hub.docker.com/r/cheikh331/fastapi-yolo)
+
 A REST API using FastAPI and YOLOv5 to detect objects in images. Includes an interactive Swagger UI and a batch client script for automated testing.
 
 
@@ -33,17 +37,29 @@ Start the server with:
 uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 ```
 
-## Interactive API Documentation
+## Run with Docker  
 
-Visit the Swagger UI at `http://127.0.0.1:8000/docs`
+Pull the latest image and start the container:  
 
-Test the `POST /predict/` endpoint directly in your browser:
+```bash
+docker pull cheikh331/fastapi-yolo:latest
+docker run -d --name yolo-api -p 8000:8000 cheikh331/fastapi-yolo:latest
+```
 
+Verify the container is running:
+
+```bash
+docker ps
+```
+
+
+## Interactive Docs
+
+Access the interactive docs at `http://127.0.0.1:8000/docs`  
 ![Swagger UI – POST /predict](screenshots/swagger.png)
 
-**file**: upload an image (JPEG/PNG)  
 
-## POST /predict/
+## API Endpoint
 
 Send an image and receive an annotated result.
 
@@ -65,6 +81,28 @@ Annotated images are saved to `images/output/annotated_<filename>`. The default 
 Sample detection on a daytime street scene (`annotated_pic5.png`):
 
 ![Demo Daytime Scene](images/output/annotated_pic5.png)
+
+
+
+## Docker Image Registry
+
+View the published image on Docker Hub:
+
+![Docker Hub Repository](screenshots/f.png)
+
+Verify the push of all layers:
+
+![Docker Push Output](screenshots/e.png)
+
+
+## Cleanup
+
+To stop and remove the container when you’re done:
+
+```bash
+docker stop yolo-api
+docker rm yolo-api
+```
 
 ## Threshold Analysis
 
