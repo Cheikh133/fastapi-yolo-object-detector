@@ -7,6 +7,21 @@
 A REST API using FastAPI and YOLOv5 to detect objects in images. Includes an interactive Swagger UI and a batch client script for automated testing.
 
 
+## Table of Contents
+
+- [Installation](#installation)
+- [Testing](#testing)
+- [Running the API](#running-the-api)
+- [Run with Docker](#run-with-docker)
+- [Interactive Docs](#interactive-docs)
+- [API Endpoint](#api-endpoint)
+- [Batch Processing with `client.py`](#batch-processing-with-clientpy)
+- [Demo Output](#demo-output)
+- [Docker Image Registry](#docker-image-registry)
+- [Cleanup](#cleanup)
+- [Threshold Analysis](#threshold-analysis)
+
+
 ## Installation
 
 1. Clone the repository:
@@ -117,10 +132,5 @@ docker rm yolo-api
 
 ## Threshold Analysis
 
-An analysis of how the confidence threshold affects:
-
-- Number of detections  
-- Average confidence  
-
-See `notebooks/threshold_analysis.ipynb` for details. This guided our choice of 0.50 as the default threshold.
+[Open threshold_analysis.ipynb](notebooks/threshold_analysis.ipynb)
 
