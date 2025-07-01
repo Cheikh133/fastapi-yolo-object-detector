@@ -29,6 +29,17 @@ A REST API using FastAPI and YOLOv5 to detect objects in images. Includes an int
     pip install -r requirements.txt
     ```
 
+## Testing
+
+Run all unit and integration tests before you push:
+
+```bash
+pytest tests/ -q
+```
+
+All tests are also executed automatically in our GitHub Actions workflow.
+
+
 ## Running the API
 
 Start the server with:  
