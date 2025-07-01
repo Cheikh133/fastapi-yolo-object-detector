@@ -9,3 +9,5 @@ requests
 ultralytics
 seaborn
 python-multipart
+pytest
+httpx
