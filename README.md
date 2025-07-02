@@ -121,6 +121,13 @@ Verify the push of all layers:
 ![Docker Push Output](screenshots/e.png)
 
 
+## Cloud Deployment (AWS Elastic Beanstalk)
+
+Our Dockerized FastAPI + YOLOv5 app successfully launched in an Elastic Beanstalk environment:
+
+![Elastic Beanstalk Environment Overview](screenshots/eb-env-overview.png)
+
+
 ## Cleanup
 
 To stop and remove the container when you’re done:
