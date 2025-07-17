@@ -3,10 +3,10 @@ app/routes/predict.py
 
 Defines the /predict endpoint for YOLOv5 object detection via FastAPI.
 """
+
 import io
 from fastapi import APIRouter, UploadFile, File, HTTPException, Query
 from fastapi.responses import StreamingResponse
-
 from app.services.inference import run_inference_on_image
 
 router = APIRouter()
@@ -31,18 +31,20 @@ async def predict_image(
     confidence threshold, and return the annotated image as JPEG.
 
     Args:
-        file: Uploaded image file in multipart/form-data.
-        confidence: Float between 0.0 and 1.0 to filter out low-confidence detections.
+        file (UploadFile): Uploaded image file in multipart/form-data.
+        confidence (float): Float between 0.0 and 1.0 to filter out low-confidence detections.
 
     Returns:
         StreamingResponse: JPEG image with bounding boxes drawn.
-    """
-    image_bytes = await file.read()
 
+    Raises:
+        HTTPException: If inference fails or image cannot be processed.
+    """
     try:
+        image_bytes = await file.read()
         annotated = run_inference_on_image(image_bytes, conf_threshold=confidence)
     except Exception as exc:
-        raise HTTPException(status_code=500, detail=str(exc))
+        raise HTTPException(status_code=500, detail=f"Inference failed: {exc}")
 
     buffer = io.BytesIO()
     annotated.save(buffer, format="JPEG")
