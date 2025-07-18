@@ -20,7 +20,7 @@ A REST API using FastAPI and YOLOv5 to detect objects in images. Includes an int
 - [Docker Image Registry](#docker-image-registry)
 - [Cleanup](#cleanup)
 - [Threshold Analysis](#threshold-analysis)
-
+- [Author](#author)
 
 ## Installation
 
