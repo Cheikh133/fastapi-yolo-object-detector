@@ -1,5 +1,6 @@
 # YOLOv5 Object Detection API
 
+
 [![Build & Push Docker Image](https://github.com/Cheikh133/fastapi-yolo-object-detector/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/Cheikh133/fastapi-yolo-object-detector/actions/workflows/docker-publish.yml)
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/cheikh331/fastapi-yolo)](https://hub.docker.com/r/cheikh331/fastapi-yolo)
